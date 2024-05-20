@@ -224,7 +224,7 @@ fi
 if [[ "${tag_prefix}" > "1.7" || "${tag_prefix}" == "1.7" ]]; then
     echo "MLRun version >= 1.7 running new update_demos.sh script"
     rm -rf update_demos.sh
-    wget https://raw.githubusercontent.com/mlrun/mlrun/development/automation/scripts/update_demos.sh
+    wget https://raw.githubusercontent.com/daniels290813/mlrun/update_demos_17/automation/scripts/update_demos.sh
     sh update_demos.sh
     error_exit "Done"
 fi

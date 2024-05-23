@@ -65,10 +65,12 @@ get_latest_tag() {
     for version in "${tags[@]}"; do
       tag=${version#refs/tags/}
       if [[ $version == *"rc"* ]]; then
-        # If the version string contains "rc," add it to the list with "rc"
-        with_rc+=("$tag")
+        # If the version string contains "rc," add it to the list with "rc" - only the ones in the form of "something"rcXX
+        if [[ $version =~ (^|[^[:alnum:]])rc[0-9]{1,2}$ ]]; then
+            with_rc+=("$tag")
+        fi
       else
-        # Otherwise, add it to the list without "rc"
+        # Otherwise, add it to the list without "rc" 
         without_rc+=("$tag")
       fi
     done

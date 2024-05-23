@@ -235,18 +235,14 @@ temp_dir=$(mktemp -d /tmp/temp-get-demos.XXXXXXXXXX)
 trap '{ rm -rf $temp_dir; }' EXIT
 echo "Copying files to a temporary directory '${temp_dir}'..."
 
-
-
-
-tar_url="${git_base_url}/archive/${branch}.tar.gz"
-
-echo "Downloading : $tar_url ..."
 if [[ "${branch}">"v1.7" ]]; then
     tar_url="https://github.com/mlrun/mlrun/releases/download/${branch}/mlrun-demos.tar"
+    echo "Downloading : $tar_url ..."
     wget "${tar_url}"
     tar -xvf mlrun-demos.tar -C "${temp_dir}" --strip-components 1
 else
     tar_url="https://github.com/mlrun/demos/archive/${branch}.tar.gz"
+    echo "Downloading : $tar_url ..."
     wget -qO- "${tar_url}" | tar xz -C "${temp_dir}" --strip-components 1
 fi
 

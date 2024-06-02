@@ -236,6 +236,7 @@ trap '{ rm -rf $temp_dir; }' EXIT
 echo "Copying files to a temporary directory '${temp_dir}'..."
 
 if [[ "${branch}">"v1.7" ]]; then
+    rm -rf mlrun-demos.tar
     tar_url="https://github.com/mlrun/mlrun/releases/download/${branch}/mlrun-demos.tar"
     echo "Downloading : $tar_url ..."
     wget "${tar_url}"

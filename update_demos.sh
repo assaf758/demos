@@ -261,6 +261,7 @@ download_tar_to_temp_dir() {
     echo "Downloading : $tar_url ..."
     wget -c "${tar_url}" -O mlrun-demos.tar
     tar -xf mlrun-demos.tar -C "${temp_dir}" --strip-components 1
+    chmod +x "${temp_dir}"/update_demos.sh
     rm -rf mlrun-demos.tar
     }
 download_tar_gz_to_temp_dir() {

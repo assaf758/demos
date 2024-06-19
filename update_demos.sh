@@ -261,7 +261,6 @@ download_tar_to_temp_dir() {
     echo "Downloading : $tar_url ..."
     wget -c "${tar_url}" -O mlrun-demos.tar
     tar -xf mlrun-demos.tar -C "${temp_dir}" --strip-components 1
-    chmod +x "${temp_dir}"/update_demos.sh
     rm -rf mlrun-demos.tar
     }
 download_tar_gz_to_temp_dir() {
@@ -304,6 +303,13 @@ if [ -z "$mlrun_version" ]; then # mlrun version isn't specified. using installe
         mlrun_version="${pip_mlrun##Version: }"
     fi
 fi
+
+# Handling the case mlrun version is 0.0.0+unstable
+tag_prefix=`echo "${mlrun_version}" | cut -d . -f1-2`
+if [[ "$tag_prefix"=="0.0" ]]; then
+    mlrun_version="1.7.0"
+fi
+
 echo "Looking for demos with MLRun version - ${mlrun_version}."
 if [[ "${mlrun_version}"<"1.7" ]]; then
     git_repo="demos"
